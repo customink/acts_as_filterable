@@ -7,7 +7,7 @@ module ActsAsFilterable #:nodoc:
   # * lowercase  - make all character values lowercase.
   # * uppercase  - make all character values uppercase.
   # * whitespace - strip any non-important whitespace out of the value (tabs and newlines).
-  Filters = returning Hash.new([]) do |f|
+  Filters = Hash.new([]).tap do |f|
     f[:digits]     = lambda { |attr| attr.gsub!(/[^\d]*/, "") }
     f[:lowercase]  = lambda { |attr| attr.downcase! }
     f[:uppercase]  = lambda { |attr| attr.upcase! }
