@@ -1,6 +1,6 @@
+require 'rubygems'
 require "minitest/spec"
 require "active_record"
-
 require "acts_as_filterable"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
