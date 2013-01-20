@@ -1,32 +1,21 @@
-require 'rubygems'
-require "minitest/spec"
-require "active_record"
-require "acts_as_filterable"
+require 'bundler/setup'
+Bundler.require :default, :development, :test
+require 'support/active_record_setup'
+require 'support/active_record_models'
+require 'minitest/autorun'
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-ActiveRecord::Migration.verbose = false
+module ActsAsFilterable
+  class TestCase < MiniTest::Spec
+    
+    include ActiveRecordSetup
 
-ActiveRecord::Schema.define do
-  create_table :contact_details, :force => true do |t|
-    t.string :name
-    t.string :phone_number
-    t.string :fax_number
-    t.float :discount
-  end
+    private
 
-  create_table :users, :force => true do |t|
-    t.string :handle
-    t.string :phone_number
-  end
+    def assert_identity_after_filter(filter, value)
+      identity = value.object_id
+      filter.call(value)
+      identity.must_equal value.object_id
+    end
+
+  end  
 end
-
-class ContactDetail < ActiveRecord::Base
-  filter_for_digits :phone_number, :fax_number
-end
-
-class User < ActiveRecord::Base
-  filter_for_digits :phone_number
-  filter_for_lowercase :handle
-end
-
-MiniTest::Unit.autorun

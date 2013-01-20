@@ -1,4 +1,4 @@
-module ActsAsFilterable #:nodoc:
+module ActsAsFilterable 
 
   # This flyweight represents all of the filters that we can run on attributes.
   # Each filter should modify the attribute value in place an not create new strings.
@@ -14,7 +14,7 @@ module ActsAsFilterable #:nodoc:
     f[:whitespace] = lambda { |attr| attr.gsub!(/\s+/, " "); attr.strip! }
   end.freeze
 
-  module ActiveRecordExt #:nodoc:
+  module ActiveRecordExt
 
     # Module that is mixed into the ActiveRecord::Base class
     # I know, I know, Base is a cop-out but it does serve a purpose for
@@ -85,5 +85,4 @@ module ActsAsFilterable #:nodoc:
     end
 
   end
-
 end
