@@ -57,9 +57,13 @@ module ActsAsFilterable
     describe 'lower' do
 
       it "should lowercase all alpha values" do
-        value = "FAIl STRING"
-        filters[:lowercase].call(value)
-        value.must_equal "fail string"
+        v = "FAIl STRING"
+        filters[:lowercase].call(v)
+        v.must_equal "fail string"
+      end
+
+      it 'should cope with casting object to a string' do
+        filters[:lowercase].call(123).must_equal '123'
       end
 
       it "should not create extra string objects when replacing values" do
@@ -75,9 +79,13 @@ module ActsAsFilterable
     describe 'uppercase' do
 
       it "should uppercase all alpha values" do
-        value = "lowercase string"
-        filters[:uppercase].call(value)
-        value.must_equal "LOWERCASE STRING"
+        v = "lowercase string"
+        filters[:uppercase].call(v)
+        v.must_equal "LOWERCASE STRING"
+      end
+
+      it 'should cope with casting object to a string' do
+        filters[:uppercase].call(123).must_equal '123'
       end
 
       it "should not create extra string objects when replacing values" do
@@ -96,6 +104,10 @@ module ActsAsFilterable
         value = "\t hai!    this is neat\n\nok?  \t"
         filters[:whitespace].call(value)
         value.must_equal "hai! this is neat ok?"
+      end
+
+      it 'should cope with casting object to a string' do
+        filters[:whitespace].call(123).must_equal '123'
       end
 
       it "should trim the ends of the string" do

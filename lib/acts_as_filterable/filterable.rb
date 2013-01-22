@@ -26,8 +26,8 @@ module ActsAsFilterable
       def generate_aaf_attribute_methods(name, *attribs)
         attribs.each do |attrib|
           attrib = attrib.to_s
-          define_method_attribute(attrib)
           column = columns_hash[attrib]
+          define_read_method attrib, attrib, column
           column_cast_code = column.type_cast_code('v') if column
           access_code  = %|begin|
           access_code << %|; v = @attributes['#{attrib}']|
@@ -35,7 +35,6 @@ module ActsAsFilterable
           access_code << %|; v = #{acts_as_filterable_cast_code(name)}|
           access_code << %|; v|
           access_code << %|; end|
-          access_code = "@attributes_cache['#{attrib}'] ||= (#{access_code})" if cache_attribute?(attrib)
           generated_attribute_methods.module_eval <<-RUBY, __FILE__, __LINE__ + 1
             undef :_#{attrib} if method_defined?('_#{attrib}')
             undef :#{attrib} if method_defined?('#{attrib}')

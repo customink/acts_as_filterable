@@ -61,5 +61,20 @@ module ActsAsFilterable
       ContactDetail.first.wont_be :changed?
     end
 
+    it 'can stack filters' do
+      if Util.rails32? && RUBY_VERSION > '1.8.7'
+        # Writes
+        account = Account.new
+        account.first_name = 'kEN  '
+        account.last_name = '  cOLLINS'
+        account.valid?
+        account.full_name.must_equal 'Ken Collins'
+        # Reads (only in 3.2)
+        account = Account.create!
+        Account.update_all({:first_name => 'kEN  ', :last_name => '  cOLLINS'}, {:id => account.id})
+        Account.first.full_name.must_equal 'Ken Collins'
+      end
+    end
+
   end
 end

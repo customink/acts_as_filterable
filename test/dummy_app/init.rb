@@ -38,15 +38,29 @@ module ActsAsFilterable
             t.string :phone_number
             t.string :fax_number
             t.float :discount
+            t.datetime :created_at
+            t.datetime :updated_at
           end
           create_table :users, :force => true do |t|
             t.string :handle
             t.string :phone_number
+            t.string :first_name
+            t.string :last_name
+            t.datetime :created_at
+            t.datetime :updated_at
+          end
+          create_table :accounts, :force => true do |t|
+            t.string :first_name
+            t.string :last_name
+            t.datetime :created_at
+            t.datetime :updated_at
           end
           create_table :order_items, :force => true do |t|
             t.integer :quantity
             t.decimal :unit_price, :precision => 15, :scale => 2
             t.string  :total
+            t.datetime :created_at
+            t.datetime :updated_at
           end
         end
       end

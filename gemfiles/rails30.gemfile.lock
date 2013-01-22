@@ -1,7 +1,7 @@
 PATH
   remote: /Users/kencollins/Repositories/customink/acts_as_filterable
   specs:
-    acts_as_filterable (0.5.0)
+    acts_as_filterable (0.5.1)
       rails (>= 3.0.0)
 
 GEM

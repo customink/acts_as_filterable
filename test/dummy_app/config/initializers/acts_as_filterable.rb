@@ -12,4 +12,8 @@ ActsAsFilterable.configure do |config|
     value.try(:to_i)
   end
 
+  config.add_filter :titleization do |value|
+    value.try(:titleize)
+  end
+
 end

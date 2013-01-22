@@ -36,6 +36,9 @@ end
 
 ## Versions
 
+  * 0.5.1 - Better Railtie init process and 3.0/3.1 method generation.
+    * Default string filters will cast to a string if needed.
+    * Added filter stack test for reads and writes. Only 3.2 compatabile and 1.9 compatabile
   * 0.5.0 - Added custom filters and complete overhaul of code.
     * **WARNING!** Interface change, switch from `filter_for_digits :attrib` to `acts_as_filterable :digits, :attrib`.
     * Now uses a Railtie for load hooks. Only patch ActiveRecord when present.

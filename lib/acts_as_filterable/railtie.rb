@@ -3,8 +3,8 @@ module ActsAsFilterable
     
     config.acts_as_filterable = ActsAsFilterable.config
 
-    config.after_initialize do |app|
-      require 'acts_as_filterable/base'
+    initializer 'acts_as_filterable.after.load_active_support', :after => :load_active_support, :group => :all do |app|
+      ActiveSupport.on_load(:active_record) { require 'acts_as_filterable/base' }
     end
     
   end

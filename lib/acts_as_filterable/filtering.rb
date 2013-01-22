@@ -48,25 +48,37 @@ module ActsAsFilterable
     def default_lowercase_filter
       lambda do |value|
         return if value.nil?
-        value.downcase!
-        value
+        if value.is_a?(String)
+          value.downcase!
+          value
+        else 
+          value.to_s.downcase
+        end
       end
     end
 
     def default_uppercase_filter
       lambda do |value|
         return if value.nil?
-        value.upcase!
-        value
+        if value.is_a?(String)
+          value.upcase!
+          value
+        else 
+          value.to_s.upcase
+        end
       end
     end
 
     def default_whitespace_filter
       lambda do |value|
         return if value.nil?
-        value.gsub!(/\s+/, " ")
-        value.strip!
-        value
+        if value.is_a?(String)
+          value.gsub!(/\s+/, " ")
+          value.strip!
+          value
+        else 
+          value.to_s.gsub(/\s+/, " ").strip
+        end
       end
     end
 
