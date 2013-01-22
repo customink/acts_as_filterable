@@ -8,3 +8,4 @@ pkg
 InstalledFiles
 Gemfile.lock
 .config
+*.log
