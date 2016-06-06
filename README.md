@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/customink/acts_as_filterable.svg?branch=master)](https://travis-ci.org/customink/acts_as_filterable)
+
 # acts_as_filterable
 
 acts_as_filterable is an Rails gem for ActiveRecord to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model.

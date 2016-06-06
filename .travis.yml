@@ -1,0 +1,14 @@
+sudo: false
+cache:
+  bundler: true
+rvm:
+  - 1.9
+  - 2.1
+  - 2.2
+  - 2.3.1
+install:
+  - gem install bundler
+  - bundle --version
+  - bundle install
+script:
+  - bundle exec appraisal rake test
