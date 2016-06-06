@@ -2,7 +2,7 @@ PATH
   remote: ../
   specs:
     acts_as_filterable (0.6.0)
-      rails (>= 3.0.0)
+      rails (>= 3.2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -42,9 +42,7 @@ GEM
     i18n (0.7.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    mime-types (3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    mime-types (2.99.2)
     minitest (4.7.5)
     multi_json (1.12.1)
     rack (1.5.5)
@@ -82,10 +80,11 @@ PLATFORMS
 DEPENDENCIES
   acts_as_filterable!
   appraisal
+  mime-types (< 3.0)
   minitest
   rails (~> 4.0.0)
   rake
   sqlite3
 
 BUNDLED WITH
-   1.12.4
+   1.12.5
