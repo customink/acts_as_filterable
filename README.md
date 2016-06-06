@@ -72,3 +72,4 @@ $ bundle exec appraisal rails42 rake test
 ## Copyright
 
 Copyright (c) 2010 Rob Ares. See LICENSE for details.
+Copyright (c) 2016 CustomInk.com
