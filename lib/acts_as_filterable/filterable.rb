@@ -20,6 +20,7 @@ module ActsAsFilterable
           def attributes
             super.tap do |hash|
               #{attribs}.each do |attrib|
+                next unless hash.key? attrib.to_s
                 value = hash[attrib.to_s]
                 hash[attrib.to_s] = ActsAsFilterable.filtering['#{filter_name}'].call(value)
               end

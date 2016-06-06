@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    acts_as_filterable (0.6.0)
+    acts_as_filterable (0.6.1)
       rails (>= 3.2.0)
 
 GEM

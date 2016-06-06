@@ -39,6 +39,7 @@ end
 
 ## Versions
 
+* 0.6.1 - Do not set #attributes unless attr/key was set.
 * 0.6.0 - Support Rails 4.0 to 4.2.
 * 0.5.1 - Better Railtie init process and 3.0/3.1 method generation.
   * Default string filters will cast to a string if needed.
