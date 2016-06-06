@@ -55,25 +55,23 @@ module ActsAsFilterable
 
     it 'allows attributs to come out of the database using filters too' do
       contact = ContactDetail.create!
-      ContactDetail.update_all({:phone_number => "555-1212"}, {:id => contact.id})
+      ContactDetail.where({:id => contact.id}).update_all({:phone_number => "555-1212"})
       ContactDetail.first.phone_number.must_equal "5551212"
       ContactDetail.first.attributes['phone_number'].must_equal "5551212"
       ContactDetail.first.wont_be :changed?
     end
 
     it 'can stack filters' do
-      if Util.rails32? && RUBY_VERSION > '1.8.7'
-        # Writes
-        account = Account.new
-        account.first_name = 'kEN  '
-        account.last_name = '  cOLLINS'
-        account.valid?
-        account.full_name.must_equal 'Ken Collins'
-        # Reads (only in 3.2)
-        account = Account.create!
-        Account.update_all({:first_name => 'kEN  ', :last_name => '  cOLLINS'}, {:id => account.id})
-        Account.first.full_name.must_equal 'Ken Collins'
-      end
+      # Writes
+      account = Account.new
+      account.first_name = 'kEN  '
+      account.last_name = '  cOLLINS'
+      account.valid?
+      account.full_name.must_equal 'Ken Collins'
+      # Reads (only in 3.2)
+      account = Account.create!
+      Account.where({:id => account.id}).update_all({:first_name => 'kEN  ', :last_name => '  cOLLINS'})
+      Account.first.full_name.must_equal 'Ken Collins'
     end
 
   end

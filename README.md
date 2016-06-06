@@ -1,6 +1,9 @@
+
+[![Build Status](https://travis-ci.org/customink/acts_as_filterable.svg?branch=master)](https://travis-ci.org/customink/acts_as_filterable)
+
 # acts_as_filterable
 
-acts_as_filterable is an Rails plugin for ActiveRecord to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model.
+acts_as_filterable is an Rails gem for ActiveRecord to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model.
 
 
 ## Background
@@ -10,10 +13,10 @@ You might ask why we just didn't convert the column value. That _would_ be the r
 
 ## Current default filters
 
-  * digits: leaves only numeric values
-  * uppercase: uppercase all alpha characters
-  * lowercase: lowercase all alpha characters
-  * whitespace: strips and non-essential whitespace out of a string (leaving only single whitespace characters).
+* digits: leaves only numeric values
+* uppercase: uppercase all alpha characters
+* lowercase: lowercase all alpha characters
+* whitespace: strips and non-essential whitespace out of a string (leaving only single whitespace characters).
 
 
 ## Custom filters.
@@ -36,32 +39,33 @@ end
 
 ## Versions
 
-  * 0.5.1 - Better Railtie init process and 3.0/3.1 method generation.
-    * Default string filters will cast to a string if needed.
-    * Added filter stack test for reads and writes. Only 3.2 compatabile and 1.9 compatabile
-  * 0.5.0 - Added custom filters and complete overhaul of code.
-    * **WARNING!** Interface change, switch from `filter_for_digits :attrib` to `acts_as_filterable :digits, :attrib`.
-    * Now uses a Railtie for load hooks. Only patch ActiveRecord when present.
-    * Added a dummy Rails application to test against.
-    * There is now only one `acts_as_filterable` class method added to ActiveRecord::Base! This also keeps non participating models from getting callbacks that they are not concerned with.
-    * Filters are applied to values coming right out of the database too!
-  * 0.4.0 - Project refactor and modernization of gem setup.
-    
+* 0.6.0 - Support Rails 4.0 to 4.2.
+* 0.5.1 - Better Railtie init process and 3.0/3.1 method generation.
+  * Default string filters will cast to a string if needed.
+  * Added filter stack test for reads and writes. Only 3.2 compatabile and 1.9 compatabile
+* 0.5.0 - Added custom filters and complete overhaul of code.
+  * **WARNING!** Interface change, switch from `filter_for_digits :attrib` to `acts_as_filterable :digits, :attrib`.
+  * Now uses a Railtie for load hooks. Only patch ActiveRecord when present.
+  * Added a dummy Rails application to test against.
+  * There is now only one `acts_as_filterable` class method added to ActiveRecord::Base! This also keeps non participating models from getting callbacks that they are not concerned with.
+  * Filters are applied to values coming right out of the database too!
+* 0.4.0 - Project refactor and modernization of gem setup.
+
 
 ## Testing
 
-The acts_as_filterable gem is fully tested from Rails 3.0 to 3.2. We run our tests in both Ruby 1.8 and 1.9. If you detect a problem, open up a github issue or fork the repo and help out. After you fork or clone the repository, the following commands will get you up and running on the test suite. 
+The acts_as_filterable gem is fully tested from Rails 3.2 to 4.2. We run our tests in both Ruby 1.8 and 1.9. If you detect a problem, open up a github issue or fork the repo and help out. After you fork or clone the repository, the following commands will get you up and running on the test suite.
 
 ```shell
 $ bundle install
-$ bundle exec rake appraisal:setup
-$ bundle exec rake appraisal test
+$ bundle exec appraisal update
+$ bundle exec appraisal rake test
 ```
 
-We use the [appraisal](https://github.com/thoughtbot/appraisal) gem from Thoughtbot to help us generate the individual gemfiles for each Rails version and to run the tests locally against each generated Gemfile. The `rake appraisal test` command actually runs our test suite against all Rails versions in our `Appraisal` file. If you want to run the tests for a specific Rails version, use `rake -T` for a list. For example, the following command will run the tests for Rails 3.2 only.
+We use the [appraisal](https://github.com/thoughtbot/appraisal) gem from Thoughtbot to help us generate the individual gemfiles for each Rails version and to run the tests locally against each generated Gemfile. The `rake appraisal test` command actually runs our test suite against all Rails versions in our `Appraisal` file. If you want to run the tests for a specific Rails version, use `rake -T` for a list. For example, the following command will run the tests for Rails 4.2 only.
 
 ```shell
-$ bundle exec rake appraisal:rails32 test
+$ bundle exec appraisal rails42 rake test
 ```
 
 

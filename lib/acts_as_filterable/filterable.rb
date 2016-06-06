@@ -12,53 +12,34 @@ module ActsAsFilterable
 
     module ClassMethods
 
-      def filtered_attributes_for_attribute(attr_name)
-        return [] unless attr_name
-        filtered_attributes.select{ |name, attribs| attribs.include?(attr_name.to_sym) }
-      end
-
-      def acts_as_filterable_cast_code(name, var_name='v')
-        "ActsAsFilterable.filtering['#{name}'].call(#{var_name})"
-      end
-
       private
 
-      def generate_aaf_attribute_methods(name, *attribs)
-        attribs.each do |attrib|
-          attrib = attrib.to_s
-          column = columns_hash[attrib]
-          define_read_method attrib, attrib, column
-          column_cast_code = column.type_cast_code('v') if column
-          access_code  = %|begin|
-          access_code << %|; v = @attributes['#{attrib}']|
-          access_code << %|; v = #{column_cast_code}| if column_cast_code.present?
-          access_code << %|; v = #{acts_as_filterable_cast_code(name)}|
-          access_code << %|; v|
-          access_code << %|; end|
-          generated_attribute_methods.module_eval <<-RUBY, __FILE__, __LINE__ + 1
-            undef :_#{attrib} if method_defined?('_#{attrib}')
-            undef :#{attrib} if method_defined?('#{attrib}')
-            def _#{attrib}
-              #{access_code}
+      def generate_aaf_attribute_methods(filter_name, *attribs)
+        mod = Module.new
+        mod.module_eval <<-RUBY, __FILE__, __LINE__
+          def attributes
+            super.tap do |hash|
+              #{attribs}.each do |attrib|
+                value = hash[attrib.to_s]
+                hash[attrib.to_s] = ActsAsFilterable.filtering['#{filter_name}'].call(value)
+              end
             end
-            alias #{attrib} _#{attrib}
+          end
+        RUBY
+        attribs.each do |attrib|
+          mod.module_eval <<-RUBY, __FILE__, __LINE__
+            def #{attrib}
+              ActsAsFilterable.filtering['#{filter_name}'].call(super)
+            end
           RUBY
         end
+        include(mod)
       end
 
-      def attribute_cast_code(attr_name)
-        super.tap do |code|
-          filtered_attributes_for_attribute(attr_name).each do |name, attribs|
-            code << "; #{acts_as_filterable_cast_code(name)}"
-          end
-        end
-      end
-      
     end
 
-
     private
-    
+
     def apply_acts_as_filterable
       self.class.filtered_attributes.each do |name, attribs|
         attribs.each do |attrib|
@@ -72,6 +53,6 @@ module ActsAsFilterable
       data = send(attrib)
       filter.call(data) if data.is_a?(String)
     end
-    
+
   end
 end
