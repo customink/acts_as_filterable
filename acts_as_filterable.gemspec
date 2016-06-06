@@ -6,8 +6,8 @@ require 'acts_as_filterable/version'
 Gem::Specification.new do |gem|
   gem.name          = "acts_as_filterable"
   gem.version       = ActsAsFilterable::VERSION
-  gem.authors       = ["Rob Ares"]
-  gem.email         = ["rob.ares@gmail.com"]
+  gem.authors       = ["Rob Ares", "Ken Collins"]
+  gem.email         = ["rob.ares@gmail.com", "kcollins@customink.com"]
   gem.description   = %q{Filter attributes and stuff.}
   gem.summary       = %q{Filter attributes and stuff.}
   gem.homepage      = "http://github.com/rares/acts_as_filterable"
