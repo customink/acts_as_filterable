@@ -3,6 +3,8 @@
 
 # acts_as_filterable
 
+[![Overall](https://img.shields.io/endpoint?style=flat&url=https://app.opslevel.com/api/service_level/e13be1_hRQnImksQinrBx4tFqh9FOr9jSW3PGK1a0ww)](https://app.opslevel.com/services/acts_as_filterable/maturity-report)
+
 acts_as_filterable is an Rails gem for ActiveRecord to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model.
 
 
